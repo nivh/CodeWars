@@ -1,0 +1,25 @@
+{
+  "name": "simple-pig-latin",
+  "version": "1.0.0",
+  "description": "Move the first letter of each word to the end of it, then add 'ay' to the end of the word. Leave punctuation marks untouched.",
+  "main": "simple-pig-latin.js",
+  "dependencies": {
+    "jest": "^26.2.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.1"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nivh/CodeWars-Simple-Pig-Latin.git"
+  },
+  "author": "Niv Haramati",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nivh/CodeWars-Simple-Pig-Latin/issues"
+  },
+  "homepage": "https://github.com/nivh/CodeWars-Simple-Pig-Latin#readme"
+}
