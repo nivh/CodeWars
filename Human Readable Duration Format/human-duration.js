@@ -37,7 +37,7 @@ function formatDuration (seconds) {
 	if (minutes>0) ret+= ", "+makePlural("minute",minutes);
 	if (seconds>0) ret+= ", "+makePlural("second", seconds);
 	// replace the last ", " with " and "
-	ret= ret.replace(/, /,'').replace(/,\s([^,]+)$/, ' and $1');
+	ret= ret.replace(/^, /,'').replace(/,\s([^,]+)$/, ' and $1');
     return ret;
   }
 
