@@ -52,5 +52,5 @@ function formatDuration (seconds) {
   
 module.exports = {formatDuration, makePlural};
 
-  let time=formatDuration(62)
-  console.log(time);
+//   let time=formatDuration(62)
+//   console.log(time);
