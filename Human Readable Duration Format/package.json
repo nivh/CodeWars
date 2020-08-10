@@ -1,0 +1,11 @@
+{
+  "name": "hunan-readable-duration-format",
+  "version": "1.0.0",
+  "description": "",
+  "main": "human-duration.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC"
+}
