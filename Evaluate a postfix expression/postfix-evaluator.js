@@ -1,4 +1,6 @@
+// @ts-check
 "use strict";
+
 // Imagine you are in a universe where you can just perform the following arithematic operations. 
 // Addition(+), Subtraction(-), Multiplication(*), Division(/). 
 // You are given given a postfix expression. 
@@ -20,26 +22,60 @@
  * @param {any} value value of the StackNode
  * @param {StackNode} next (optional) next StackNode
  */
-function StackNode(value, next=null){
-    this.value=value;
-    this.next=next;
+function StackNode(value, next = null) {
+    this.value = value;
+    this.next = next;
 }
 
 /**
  * Stack constructor
  */
-function Stack(){
-    this.top=null;
-    this.bottom=null;
-    this.size=0;
+function Stack() {
+    this.top = null;
+    this.bottom = null;
+    this.size = 0;
 }
 
 /**
  * Push value on top of the stack
  * @param {any} value The value to push to the stack
  */
-Stack.prototype.push = function (value){
-    
+Stack.prototype.push = function (value) {
+    let newNode = new StackNode(value, this.top);
+    if (this.size === 0) this.bottom = newNode; // was empty list
+    this.top = newNode;
+    this.size++;
+    return this; // for chaining
+}
+
+/**
+ * Pop a value from top of list
+ */
+Stack.prototype.pop = function () {
+    if (this.top === null) return null; // empty stack
+    let val = this.top.value;
+    this.top = this.top.next;
+    if (!this.top) this.bottom = null; // was last node
+    this.size--;
+    return val;
+}
+
+/**
+ * simple evaluation function. 
+ * return: evaluation of: (operand1 operator operand2)
+ * example: (5 * 4) = 9
+ * @param {number} operand1 First operand
+ * @param {number} operand2 Second opreand
+ * @param {string} operator Operator (can handle: + - * /)
+ */
+function simpleEval (operand1, operand2, operator) {
+    switch (operator) {
+        case '+': return operand1 + operand2;
+        case '-': return operand1 - operand2;
+        case '*': return operand1 * operand2;
+        case '/': return operand1 / operand2;
+        default: return `Error: Operator ${operator} is not supported`;
+    }
 }
 
 /**
@@ -47,11 +83,48 @@ Stack.prototype.push = function (value){
  * @param {string} string postfix to evaluate
  */
 function postfixEvaluator(string) {
-    let arr = string.split(' ');
-    if (arr.length === 1) return arr[0]; // in case there is only 1 item in the array. thought: maybe needed to end recursion, needed?
-    // find left most operand
-
+    let stack = new Stack();
+    string.split(' ').forEach(item=>{
+        if (item==='+' || item==='-' || item==='*' || item==='/') {
+            // Oprerator found. pop 2 items from the stack, evaluate them and push them back to the stack
+            let operand1=parseInt(stack.pop());
+            let operand2=parseInt(stack.pop());
+            stack.push(simpleEval(operand2, operand1, item));
+        }
+        else {
+            // Operand found. push it to the stack
+            stack.push(item);
+        }
+    });
+    return stack.pop(); // should be the last item, and the result of all expression
 }
 
+
+/**
+ * This function console.log's all the values in the stack.
+ */
+Stack.prototype.print = function () {
+    let n=this.top;
+    while (n!=null) {
+        console.log(n.value);
+        n=n.next;
+    }
+}
 // Debug
-console.log(postfixEvaluator('2 3 +'));
+
+// check stack
+// let s=new Stack();
+// s.push(5).push(6).push(7);
+// s.print();
+
+//console.log(simpleEval(5,3,'+'));
+let check='2 3 +';
+console.log(`${check} = ${postfixEvaluator(check)}`);
+check='12 4 /';
+console.log(`${check} = ${postfixEvaluator(check)}`);
+check='12 4 -';
+console.log(`${check} = ${postfixEvaluator(check)}`);
+check='20 40 + 60 *';
+console.log(`${check} = ${postfixEvaluator(check)}`);
+check='20 40 60 + *';
+console.log(`${check} = ${postfixEvaluator(check)}`);
