@@ -128,3 +128,27 @@ check='20 40 + 60 *';
 console.log(`${check} = ${postfixEvaluator(check)}`);
 check='20 40 60 + *';
 console.log(`${check} = ${postfixEvaluator(check)}`);
+
+// best1 from CodeWars.com:
+function postfixEvaluator_1(string) {
+    let ops = {
+      '+': (a, b) => b + a,
+      '-': (a, b) => b - a,
+      '*': (a, b) => b * a,
+      '/': (a, b) => b / a | 0
+    };
+    return string.split(/\s/).reduce((stack, el) => {
+      if (el in ops) {
+        stack.push(ops[el](stack.pop(), stack.pop()));
+      } else {
+        stack.push(+el);
+      }
+      return stack;
+    }, []).pop();
+  }
+
+  //best2 from CodeWars.com:
+  function postfixEvaluator_2(s) {
+    while(!/^-?\d+$/.test(s)) s=s.replace(/(-?\d+) (-?\d+) ([-+\*\/])/,(_,a,b,op)=>~~(eval(a+op+b)))
+    return +s
+  }
