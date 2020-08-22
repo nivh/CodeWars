@@ -16,6 +16,33 @@
 // Assume that expression is always valid and division is always an integer division.
 
 /**
+ * 
+ * @param {any} value value of the StackNode
+ * @param {StackNode} next (optional) next StackNode
+ */
+function StackNode(value, next=null){
+    this.value=value;
+    this.next=next;
+}
+
+/**
+ * Stack constructor
+ */
+function Stack(){
+    this.top=null;
+    this.bottom=null;
+    this.size=0;
+}
+
+/**
+ * Push value on top of the stack
+ * @param {any} value The value to push to the stack
+ */
+Stack.prototype.push = function (value){
+    
+}
+
+/**
  * evaluate postfix string
  * @param {string} string postfix to evaluate
  */
@@ -23,7 +50,7 @@ function postfixEvaluator(string) {
     let arr = string.split(' ');
     if (arr.length === 1) return arr[0]; // in case there is only 1 item in the array. thought: maybe needed to end recursion, needed?
     // find left most operand
-    
+
 }
 
 // Debug
